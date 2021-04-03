@@ -8,7 +8,7 @@
         <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>come.ert</groupId>
+    <groupId>com.ert</groupId>
     <artifactId>smtp-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>smtp-server</name>

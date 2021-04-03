@@ -1,10 +1,8 @@
-package come.ert.smtpserver;
+package com.ert.smtpserver;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -21,7 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.subethamail.smtp.helper.SimpleMessageListener;
 
 /**
- *
+ * Write the received email file to directory
+ * 
  * @author Eric Liang
  */
 @Slf4j
@@ -33,6 +32,7 @@ public class SimpleMessageListenerImpl implements SimpleMessageListener {
     }
 
     public SimpleMessageListenerImpl(String directory) {
+        log.debug("Starting Message Listener and writing to directory: {}",directory);
         this.directory = directory;
     }
 
@@ -48,19 +48,19 @@ public class SimpleMessageListenerImpl implements SimpleMessageListener {
         try {
             Session session = Session.getDefaultInstance(new Properties());
             MimeMessage m = new MimeMessage(session, data);
-            log.info("To: {}", recipient);
-            log.info("From: {}", from);
+            log.debug("To: {}", recipient);
+            log.debug("From: {}", from);
             String subject = m.getSubject();
             
-            log.info("Subject: {}", subject);
+            log.debug("Subject: {}", subject);
 
             String body = new String(m.getRawInputStream().readAllBytes());
-            log.info("Content: {}", body);
+            log.debug("Content: {}", body);
 
-            log.info("received mail directory: {}", directory);
+            log.debug("received mail directory: {}", directory);
             String fileName = new SimpleDateFormat("yyyyMMddHHmmssSS").format(new Date()) + ".eml";
 
-            log.info("save as file: {}", fileName);
+            log.debug("save as file: {}", fileName);
             Path writedirectory = Paths.get(directory);
             Path writepath = Paths.get(directory, fileName);
             if (java.nio.file.Files.isWritable(writedirectory)) {
@@ -72,9 +72,9 @@ public class SimpleMessageListenerImpl implements SimpleMessageListener {
             }
 
         } catch (MessagingException ex) {
-            Logger.getLogger(SimpleMessageListenerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(SimpleMessageListenerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex.getMessage());
         }
     }
 }
