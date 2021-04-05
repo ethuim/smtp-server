@@ -1,0 +1,8 @@
+{
+    "mail.smtp.host":"localhost",
+    "mail.smtp.port":"26",
+    "smtpclient.email.to":"local-test@mail.com",
+    "smtpclient.email.from":"local-client@mail.com",
+    "smtpclient.email.subject":"Test email.",
+    "smtpclient.email.text":"This is a test email.\nThank you."
+}
