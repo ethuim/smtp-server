@@ -4,5 +4,8 @@
   <description>This service runs local smtp-server.</description>
   <executable>java</executable>
   <arguments>-Xrs -Xmx256m -jar "%BASE%\smtp-server.jar"</arguments>
-  <log mode="roll"></log>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+</log>
 </service>
